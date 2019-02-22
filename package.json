@@ -24,7 +24,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+<<<<<<< HEAD
     "react-router-dom": "^4.3.1",
     "yarn": "^1.13.0"
+=======
+    "gh-pages": "^2.0.1"
+>>>>>>> master
   }
 }
