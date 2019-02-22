@@ -4,7 +4,7 @@ import '../App.css'
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
 import {update, getAll} from'../BooksAPI';
-import { Switch, Route } from 'react-router-dom';
+import {  Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   state = {
@@ -20,7 +20,6 @@ class BooksApp extends React.Component {
         super(props);
         this.state={
             books:[],
-            isUpdate:false
         }
     }
     componentDidMount() {
@@ -30,30 +29,29 @@ class BooksApp extends React.Component {
       }).catch((error)=>{
           console.log("Error Occured!");
       })
-  }
-
-    assignShelf = (books) =>{
-        var tempArray=[];
-        // books.forEach((book)=>{
-            
-        //             tempArray = this.state.wantToRead.concat(book);
-        //             this.setState({read: tempArray});
-        //     }
-        // });
-    }
+  };
 
     changeShelf=(book, shelf)=>{
+      console.log("Clicked: " + shelf);
       update(book, shelf);
+      const promise = getAll();
+      promise.then((data)=>{
+        this.setState({books:data});
+      }).catch((error)=>{
+          console.log("Error Occured!");
+      })
     }
 
   render() {
     return (
       <div className="app">
-      <ListBooks  state={this.state} books={this.state.books} isUpdated={this.state.isUpdate} changeShelf={this.changeShelf}/>
-      {/* <Switch>
-        <Route  exact path="/" component={ListBooks} />
-        <Route path="/search" component={SearchBooks} />
-      </Switch> */}
+      <Route exact path="/" render={()=> (<ListBooks  state={this.state} books={this.state.books} changeShelf={this.changeShelf}/>)}/>
+      <Route exact path="/search" render={()=>(<SearchBooks changeShelf={this.changeShelf}/>)} />
+
+      {/* {<Switch>
+        <Route exact path="/" component={ListBooks} />
+        <Route path="/search/" component={SearchBooks} />
+      </Switch>} */}
       </div>
     )
   }

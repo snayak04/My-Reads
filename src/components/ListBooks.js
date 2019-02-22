@@ -1,32 +1,29 @@
 import React, { Component } from 'react';
 import Bookshelf from './Bookshelf';
-import {AddBook} from './AddBook';
-import {getAll} from '../BooksAPI';
+import AddBook from './AddBook';
+
 class ListBooks extends Component {
     
-    
     render(){
-        const state={
+        var state={
             reading:[],
             wantToRead:[],
             read:[]
         }
         this.props.books.forEach((book)=>{
-            console.log(book);
-                switch(book.shelf){
-                    case "currentlyReading":
-                        state.reading.push(book);
-                        break;
-                    case "wantToRead":
-                        state.wantToRead.push(book)
-                        break;
-                    case "read":
-                        state.read.push(book);
-                        break;
-                    default://DO nothign
-                        break;
-                }
-
+            switch(book.shelf){
+                case "currentlyReading":
+                    state.reading.push(book);
+                    break;
+                case "wantToRead":
+                    state.wantToRead.push(book)
+                    break;
+                case "read":
+                    state.read.push(book);
+                    break;
+                default://Do nothign
+                    break;
+            }
             });
 
         return (
@@ -36,9 +33,9 @@ class ListBooks extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <Bookshelf changeShelf={this.props.changeShelf} isUpdated={this.props.isUpdated} title="Currently Reading" books={state.reading}/>
-                        <Bookshelf changeShelf={this.props.changeShelf}  isUpdated={this.props.isUpdated}  title="Want to Read" books={state.wantToRead}/>
-                        <Bookshelf changeShelf={this.props.changeShelf}  isUpdated={this.props.isUpdated}  title="Read" books={state.read}/>
+                        <Bookshelf changeShelf={this.props.changeShelf} title="Currently Reading" books={state.reading}/>
+                        <Bookshelf changeShelf={this.props.changeShelf} title="Want to Read" books={state.wantToRead}/>
+                        <Bookshelf changeShelf={this.props.changeShelf} title="Read" books={state.read}/>
                     </div>
                 </div>
                 <AddBook />

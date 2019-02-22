@@ -6,7 +6,7 @@ class Bookshelf extends Component {
     render(props) {
 //        {title, author, url} = props
     const books = this.props.books.map((book)=>{
-        return <Book  isUpdated={this.props.isUpdated} changeShelf={this.props.changeShelf} book={book} key={book.id}/>
+        return <Book  changeShelf={this.props.changeShelf} book={book} key={book.id}/>
     });
    return (
         <div className="bookshelf">
